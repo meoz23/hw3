@@ -12,7 +12,7 @@ class GameProvider with ChangeNotifier {
   }
 
   void _initializeCards() {
-    List<String> values = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
+    List<String> values = ['🐱', '🐱', '🧶', '🧶', '🌸', '🌸', '🥛', '🥛', '🍎', '🍎', '🎀', '🎀', '🌈', '🌈', '🍰', '🍰'];
     values.shuffle();
 
     cards = values.map((val) => CardModel(value: val)).toList();
