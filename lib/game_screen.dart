@@ -8,6 +8,24 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameProvider = Provider.of<GameProvider>(context);
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (gameProvider.cards.every((card) => card.isMatched)) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("You Win!"),
+            content: Text("All Hello Kitty pairs matched!"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("OK"),
+              ),
+            ],
+          ),
+        );
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(title: Text('Card Matching Game')),
       body: Padding(
