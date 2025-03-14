@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_provider.dart';
-import 'card_model.dart';
+import 'card_widget.dart';
 
 class GameScreen extends StatelessWidget {
   @override
@@ -20,22 +20,9 @@ class GameScreen extends StatelessWidget {
           ),
           itemCount: gameProvider.cards.length,
           itemBuilder: (context, index) {
-            return GestureDetector(
+            return CardWidget(
+              card: gameProvider.cards[index],
               onTap: () => gameProvider.flipCard(index),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                decoration: BoxDecoration(
-                  color: gameProvider.cards[index].isFaceUp ? Colors.white : Colors.blue,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
-                ),
-                child: Center(
-                  child: Text(
-                    gameProvider.cards[index].isFaceUp ? gameProvider.cards[index].value : '?',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
             );
           },
         ),
