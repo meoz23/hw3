@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'game_provider.dart';
 import 'game_screen.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: GameScreen(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => GameProvider(),
+      child: MaterialApp(home: GameScreen()),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
