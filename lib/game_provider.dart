@@ -5,6 +5,7 @@ class GameProvider with ChangeNotifier {
   List<CardModel> cards = [];
   List<int> flippedCards = [];
   int score = 0;
+  bool gameWon = false;
 
   GameProvider() {
     _initializeCards();
@@ -17,11 +18,12 @@ class GameProvider with ChangeNotifier {
     cards = values.map((val) => CardModel(value: val)).toList();
     flippedCards.clear();
     score = 0;
+    gameWon = false;
     notifyListeners();
   }
 
   void flipCard(int index) {
-    if (cards[index].isMatched || cards[index].isFaceUp) return;
+    if (cards[index].isMatched || cards[index].isFaceUp || gameWon) return;
 
     cards[index].isFaceUp = true;
     flippedCards.add(index);
@@ -38,9 +40,17 @@ class GameProvider with ChangeNotifier {
           score -= 2;
         }
         flippedCards.clear();
+        checkWinCondition();
         notifyListeners();
       });
     } else {
+      notifyListeners();
+    }
+  }
+
+  void checkWinCondition() {
+    if (cards.every((card) => card.isMatched)) {
+      gameWon = true;
       notifyListeners();
     }
   }
